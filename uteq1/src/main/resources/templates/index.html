@@ -27,6 +27,12 @@
 
             <div class="vacio" th:if="${#lists.isEmpty(divisiones)}">Por ahora no hay carreras publicadas. Vuelve pronto.</div>
 
+            <div class="landing-filtros" th:unless="${#lists.isEmpty(divisiones)}">
+                <button type="button" class="landing-chip activo" data-filtro="todas">Todas</button>
+                <button type="button" class="landing-chip" th:each="d : ${divisiones}"
+                        th:attr="data-filtro=${d.id}" th:text="${d.nombre}">División</button>
+            </div>
+
             <div class="landing-division" th:each="d : ${divisiones}" th:attr="data-division=${d.id}"
                  th:with="lista=${carreras.?[division.id == __${d.id}__]}">
                 <div class="landing-division-encabezado">
@@ -73,5 +79,6 @@
     </section>
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/landing.js}"></script>
 </body>
 </html>
